@@ -1,0 +1,42 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Add Recipe Requirement - Django Delights{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Add Recipe Requirement</h1>
+    
+    <form method="post" class="form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.menu_item.id_for_label }}">Menu Item:</label>
+            {{ form.menu_item }}
+            {% if form.menu_item.errors %}
+                <div class="error">{{ form.menu_item.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.ingredient.id_for_label }}">Ingredient:</label>
+            {{ form.ingredient }}
+            {% if form.ingredient.errors %}
+                <div class="error">{{ form.ingredient.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.quantity.id_for_label }}">Quantity Required:</label>
+            {{ form.quantity }}
+            {% if form.quantity.errors %}
+                <div class="error">{{ form.quantity.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/menu/" class="btn">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
