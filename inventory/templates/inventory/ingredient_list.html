@@ -1,0 +1,45 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Ingredients - Django Delights{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Ingredients Inventory</h1>
+    <a href="/ingredients/add/" class="btn btn-primary">Add New Ingredient</a>
+</div>
+
+{% if ingredients %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Price per Unit</th>
+            <th>Total Value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingredient in ingredients %}
+        <tr>
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.quantity }}</td>
+            <td>{{ ingredient.unit }}</td>
+            <td>${{ ingredient.price_per_unit }}</td>
+            <td>${{ ingredient.get_total_value|floatformat:2 }}</td>
+            <td>
+                <a href="/ingredients/{{ ingredient.pk }}/update/" class="btn btn-small">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="empty-message">No ingredients in inventory. <a href="/ingredients/add/">Add your first ingredient</a>.</p>
+{% endif %}
+
+<div class="back-link">
+    <a href="/">← Back to Dashboard</a>
+</div>
+{% endblock %}
