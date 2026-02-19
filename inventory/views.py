@@ -8,7 +8,7 @@ from .forms import IngredientForm, MenuItemForm, RecipeRequirementForm, Purchase
 
 
 @login_required
-def home(self):
+def home(request):
     """
     Home view showing dashboard with key metrics.
     """
@@ -26,7 +26,7 @@ def home(self):
         for purchase in purchases
     )
     
-    # Calculate profit
+    # Calculate profit (revenue minus cost of inventory used)
     profit = total_revenue - total_inventory_cost
     
     context = {
@@ -37,7 +37,7 @@ def home(self):
         'menu_item_count': MenuItem.objects.count(),
         'purchase_count': purchases.count(),
     }
-    return render(self, 'inventory/home.html', context)
+    return render(request, 'inventory/home.html', context)
 
 
 class IngredientListView(LoginRequiredMixin, ListView):

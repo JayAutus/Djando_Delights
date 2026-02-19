@@ -13,6 +13,12 @@ class Ingredient(models.Model):
     def __str__(self):
         return f"{self.name} - {self.quantity} {self.unit} @ ${self.price_per_unit}/{self.unit}"
 
+    def get_total_value(self):
+        """
+        Calculate the total value of this ingredient in inventory.
+        """
+        return self.quantity * float(self.price_per_unit)
+
 
 class MenuItem(models.Model):
     """

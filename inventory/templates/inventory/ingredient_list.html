@@ -27,7 +27,7 @@
             <td>{{ ingredient.quantity }}</td>
             <td>{{ ingredient.unit }}</td>
             <td>${{ ingredient.price_per_unit }}</td>
-            <td>${{ ingredient.quantity|floatformat:2 }}</td>
+            <td>${{ ingredient.get_total_value|floatformat:2 }}</td>
             <td>
                 <a href="/ingredients/{{ ingredient.pk }}/update/" class="btn btn-small">Update</a>
             </td>
