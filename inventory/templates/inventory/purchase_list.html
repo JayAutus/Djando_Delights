@@ -1,0 +1,37 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Purchases - Django Delights{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Purchase Log</h1>
+    <a href="/purchases/record/" class="btn btn-success">Record Purchase</a>
+</div>
+
+{% if purchases %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Price</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for purchase in purchases %}
+        <tr>
+            <td>{{ purchase.menu_item.title }}</td>
+            <td>${{ purchase.menu_item.price }}</td>
+            <td>{{ purchase.timestamp|date:"Y-m-d H:i:s" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="empty-message">No purchases recorded yet. <a href="/purchases/record/">Record your first purchase</a>.</p>
+{% endif %}
+
+<div class="back-link">
+    <a href="/">← Back to Dashboard</a>
+</div>
+{% endblock %}
