@@ -1,3 +1,4 @@
+# pyright: reportAttributeAccessIssue=false
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from inventory.models import Ingredient, MenuItem, RecipeRequirement
@@ -7,10 +8,17 @@ class Command(BaseCommand):
     help = 'Populates the database with sample data'
 
     def handle(self, *args, **options):
-        # Create a default user if it doesn't exist
+        # Ensure admin user exists with password admin123 (README default)
         if not User.objects.filter(username='admin').exists():
             User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
-            self.stdout.write(self.style.SUCCESS('Created admin user'))
+            self.stdout.write(self.style.SUCCESS('Created admin user (admin / admin123)'))
+        else:
+            admin_user = User.objects.get(username='admin')
+            admin_user.set_password('admin123')
+            admin_user.is_staff = True
+            admin_user.is_superuser = True
+            admin_user.save()
+            self.stdout.write(self.style.SUCCESS('Reset admin password to admin123'))
 
         # Clear existing data
         RecipeRequirement.objects.all().delete()
