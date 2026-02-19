@@ -1,0 +1,17 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Remove recipe requirement - Django Delights{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Remove ingredient from recipe?</h1>
+    <p>This will remove <strong>{{ requirement.quantity }} {{ requirement.ingredient.unit }} of {{ requirement.ingredient.name }}</strong> from <strong>{{ requirement.menu_item.title }}</strong>.</p>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn" style="background-color: #e74c3c;">Remove</button>
+            <a href="{% url 'inventory:menuitem_recipe' requirement.menu_item_id %}" class="btn">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

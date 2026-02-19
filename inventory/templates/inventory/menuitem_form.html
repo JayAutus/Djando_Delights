@@ -1,16 +1,16 @@
 {% extends "inventory/base.html" %}
 
-{% block title %}Add Menu Item - Django Delights{% endblock %}
+{% block title %}{% if menuitem %}Edit{% else %}Add{% endif %} Menu Item - Django Delights{% endblock %}
 
 {% block content %}
 <div class="form-container">
-    <h1>Add New Menu Item</h1>
+    <h1>{% if menuitem %}Edit Menu Item{% else %}Add New Menu Item{% endif %}</h1>
     
     <form method="post" class="form">
         {% csrf_token %}
         
         <div class="form-group">
-            <label for="{{ form.title.id_for_label }}">Title:</label>
+            <label for="{{ form.title.id_for_label }}">Name:</label>
             {{ form.title }}
             {% if form.title.errors %}
                 <div class="error">{{ form.title.errors }}</div>
@@ -27,10 +27,14 @@
         
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a href="/menu/" class="btn">Cancel</a>
+            <a href="{% url 'inventory:menuitem_list' %}" class="btn">Cancel</a>
         </div>
     </form>
     
-    <p class="help-text">After creating a menu item, you can add recipe requirements from the <a href="/recipe/add/">Recipe page</a>.</p>
+    {% if menuitem %}
+    <p class="help-text">To change ingredients for this item, <a href="{% url 'inventory:menuitem_recipe' menuitem.pk %}">edit its recipe</a>.</p>
+    {% else %}
+    <p class="help-text">After creating a menu item, you can add recipe requirements from the <a href="/recipe/add/">Recipe page</a> or from the menu list.</p>
+    {% endif %}
 </div>
 {% endblock %}

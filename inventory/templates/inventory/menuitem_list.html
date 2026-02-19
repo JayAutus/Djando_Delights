@@ -19,6 +19,7 @@
             <th>Price</th>
             <th>Available</th>
             <th>Ingredients</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +44,10 @@
                 {% else %}
                     <em>No recipe defined</em>
                 {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'inventory:menuitem_update' item.pk %}" class="btn btn-small">Edit</a>
+                <a href="{% url 'inventory:menuitem_recipe' item.pk %}" class="btn btn-small">Edit recipe</a>
             </td>
         </tr>
         {% endfor %}
