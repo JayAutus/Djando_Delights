@@ -46,5 +46,5 @@ class PurchaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Only show menu items that can be made with current inventory
-        available_items = [item for item in MenuItem.objects.all() if item.available()]
-        self.fields['menu_item'].queryset = MenuItem.objects.filter(id__in=[item.id for item in available_items])
+        available_items = [item for item in MenuItem.objects.all() if item.available()]  # type: ignore[attr-defined]
+        self.fields['menu_item'].queryset = MenuItem.objects.filter(id__in=[item.id for item in available_items])  # type: ignore[attr-defined]
