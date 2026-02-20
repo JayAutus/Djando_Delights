@@ -1,0 +1,45 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Recipe for {{ menuitem.title }} - Django Delights{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Recipe: {{ menuitem.title }}</h1>
+    <div>
+        <a href="{% url 'inventory:menuitem_update' menuitem.pk %}" class="btn">Edit name & price</a>
+        <a href="{% url 'inventory:menuitem_list' %}" class="btn">Back to menu</a>
+    </div>
+</div>
+
+<p class="help-text" style="margin-bottom: 1rem;">Availability is based on current inventory and cannot be edited here. Add or remove ingredients below.</p>
+
+<p>
+    <a href="{% url 'inventory:recipe_create' %}?menu_item={{ menuitem.pk }}" class="btn btn-primary">Add ingredient to this recipe</a>
+</p>
+
+{% if menuitem.reciperequirement_set.all %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Ingredient</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in menuitem.reciperequirement_set.all %}
+        <tr>
+            <td>{{ req.ingredient.name }} ({{ req.ingredient.unit }})</td>
+            <td>{{ req.quantity }}</td>
+            <td>
+                <a href="{% url 'inventory:recipe_update' req.pk %}" class="btn btn-small">Edit</a>
+                <a href="{% url 'inventory:recipe_delete' req.pk %}" class="btn btn-small" style="background-color: #e74c3c;">Remove</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="empty-message">No ingredients in this recipe yet. Add one above.</p>
+{% endif %}
+{% endblock %}

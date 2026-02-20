@@ -17,15 +17,42 @@
                 <li><a href="/ingredients/">Ingredients</a></li>
                 <li><a href="/menu/">Menu</a></li>
                 <li><a href="/purchases/">Purchases</a></li>
-                <li><a href="/accounts/logout/">Logout ({{ user.username }})</a></li>
+                {% if user.is_staff %}
+                <li><a href="/admin/">Admin</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}">Logout ({{ user.username }})</a></li>
             </ul>
             {% endif %}
         </div>
     </nav>
     
     <div class="container">
+        {% if messages %}
+        <div id="toast-container" aria-live="polite">
+            {% for message in messages %}
+            <div class="toast toast-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
         {% block content %}
         {% endblock %}
     </div>
+    {% if messages %}
+    <script>
+        (function() {
+            var container = document.getElementById('toast-container');
+            if (container) {
+                var toasts = container.querySelectorAll('.toast');
+                toasts.forEach(function(toast) {
+                    toast.classList.add('toast-visible');
+                    setTimeout(function() {
+                        toast.classList.remove('toast-visible');
+                        setTimeout(function() { toast.remove(); }, 300);
+                    }, 3000);
+                });
+            }
+        })();
+    </script>
+    {% endif %}
 </body>
 </html>

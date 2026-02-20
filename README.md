@@ -77,7 +77,7 @@ inventory/              # Main application
 
 ## Technologies Used
 
-- Python 3.12
+- Python 3.14.3
 - Django 6.0.2
 - SQLite (database)
 - HTML/CSS
