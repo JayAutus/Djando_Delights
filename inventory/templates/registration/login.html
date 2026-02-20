@@ -8,7 +8,7 @@
     
     {% if form.errors %}
         <div class="error-message">
-            Invalid username or password. Please try again.
+            {{ form.non_field_errors|striptags }}
         </div>
     {% endif %}
     

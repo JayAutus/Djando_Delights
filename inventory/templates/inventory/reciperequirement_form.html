@@ -13,7 +13,7 @@
             <label for="{{ form.menu_item.id_for_label }}">Menu Item:</label>
             {{ form.menu_item }}
             {% if form.menu_item.errors %}
-                <div class="error">{{ form.menu_item.errors }}</div>
+                <div class="error">{{ form.menu_item.errors|striptags }}</div>
             {% endif %}
         </div>
         
@@ -21,7 +21,7 @@
             <label for="{{ form.ingredient.id_for_label }}">Ingredient:</label>
             {{ form.ingredient }}
             {% if form.ingredient.errors %}
-                <div class="error">{{ form.ingredient.errors }}</div>
+                <div class="error">{{ form.ingredient.errors|striptags }}</div>
             {% endif %}
         </div>
         
@@ -29,7 +29,7 @@
             <label for="{{ form.quantity.id_for_label }}">Quantity Required:</label>
             {{ form.quantity }}
             {% if form.quantity.errors %}
-                <div class="error">{{ form.quantity.errors }}</div>
+                <div class="error">{{ form.quantity.errors|striptags }}</div>
             {% endif %}
         </div>
         

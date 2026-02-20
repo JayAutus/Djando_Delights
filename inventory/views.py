@@ -143,7 +143,7 @@ class RecipeRequirementDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'requirement'
     template_name = 'inventory/reciperequirement_confirm_delete.html'
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:  # pyright: ignore[reportIncompatibleMethodOverride]
         return reverse('inventory:menuitem_recipe', kwargs={'pk': self.object.menu_item_id})
     
     def form_valid(self, form):

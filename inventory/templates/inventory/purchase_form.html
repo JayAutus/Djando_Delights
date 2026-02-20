@@ -8,7 +8,7 @@
     
     {% if form.non_field_errors %}
         <div class="error-message">
-            {{ form.non_field_errors }}
+            {{ form.non_field_errors|striptags }}
         </div>
     {% endif %}
     
@@ -19,7 +19,7 @@
             <label for="{{ form.menu_item.id_for_label }}">Menu Item:</label>
             {{ form.menu_item }}
             {% if form.menu_item.errors %}
-                <div class="error">{{ form.menu_item.errors }}</div>
+                <div class="error">{{ form.menu_item.errors|striptags }}</div>
             {% endif %}
             <p class="help-text">Only menu items that can be made with current inventory are shown.</p>
         </div>
